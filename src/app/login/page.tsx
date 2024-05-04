@@ -1,9 +1,3 @@
-const LoginPage = () => {
-    return (
-        <main>
-            Login
-        </main>
-    )
-}
+import { Login } from "@/containers/Login";
 
-export default LoginPage;
+export default Login;
