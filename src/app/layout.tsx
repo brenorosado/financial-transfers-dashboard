@@ -5,7 +5,7 @@ import { StyledComponentsRegistry } from "./lib/registry";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Bix Challenge"
+  title: "Bix Challenge",
 };
 
 export default function RootLayout({
@@ -15,11 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-        <body className={inter.className}>
-          <StyledComponentsRegistry>
-            {children}
-          </StyledComponentsRegistry>
-        </body>
+      <body className={inter.className}>
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+      </body>
     </html>
   );
 }
