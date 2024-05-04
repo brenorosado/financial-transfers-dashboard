@@ -7,7 +7,7 @@ export const LoginMain = styled.main`
   justify-content: center;
 
   section {
-    min-width: 20vw;
+    width: clamp(296px, 25vw, 25vw);
     background: var(--gray);
     padding: clamp(8px, 0.833vw, 0.833vw);
     border-radius: clamp(8px, 0.833vw, 0.833vw);

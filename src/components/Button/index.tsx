@@ -1,13 +1,14 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import * as S from "./styles";
 
 interface ButtonProps
   extends DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  content: string;
+  children: React.ReactNode;
 }
 
-export const Button = ({ content, ...props }: ButtonProps) => {
-  return <button {...props}>{content}</button>;
+export const Button = ({ children, ...props }: ButtonProps) => {
+  return <S.StyledButton {...props}>{children}</S.StyledButton>;
 };
