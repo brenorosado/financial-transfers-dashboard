@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import * as S from "./styles";
 import { Button } from "@/components/Button";
 import { FormInput } from "@/components/FormInput";
+import { useAuth } from "@/hooks/useAuth";
 
 type LoginFormValues = {
   email: string;
@@ -22,8 +23,10 @@ export const Login = () => {
     handleSubmit,
   } = useForm({ defaultValues: loginFormDefaultValues });
 
+  const { signIn } = useAuth();
+
   const submitLogin = async (data: LoginFormValues) => {
-    console.log("data", data);
+    signIn(data.email);
   };
 
   return (
