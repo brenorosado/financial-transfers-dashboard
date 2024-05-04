@@ -7,9 +7,9 @@ export const LoginMain = styled.main`
   justify-content: center;
 
   section {
-    width: clamp(296px, 25vw, 25vw);
+    width: clamp(296px, 20vw, 20vw);
     background: var(--gray);
-    padding: clamp(8px, 0.833vw, 0.833vw);
+    padding: clamp(16px, 1.667vw, 1.667vw);
     border-radius: clamp(8px, 0.833vw, 0.833vw);
   }
 `;
@@ -17,5 +17,5 @@ export const LoginMain = styled.main`
 export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: clamp(8px, 0.833vw, 0.833vw);
+  gap: clamp(16px, 1.25vw, 1.25vw);
 `;
