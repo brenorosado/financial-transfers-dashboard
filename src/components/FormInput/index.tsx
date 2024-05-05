@@ -24,7 +24,7 @@ export const FormInput = ({
   const [showTest, setShowText] = useState<boolean>(false);
 
   return (
-    <S.FormInputContainer error={error}>
+    <S.FormInputContainer error={error} data-testid="form-input-container">
       {!!label && (
         <S.InputLabel
           htmlFor={props.id}

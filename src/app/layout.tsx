@@ -18,9 +18,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <AuthContextProvider>
-            {children}
-          </AuthContextProvider>
+          <AuthContextProvider>{children}</AuthContextProvider>
         </StyledComponentsRegistry>
       </body>
     </html>

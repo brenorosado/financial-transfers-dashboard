@@ -10,9 +10,15 @@ describe("FormInput component", () => {
     expect(label).toBeInTheDocument();
   });
 
-  it("renders error message correctly", () => {
-    const { getByText } = render(<FormInput error="Field is required" />);
+  it("renders error message and applies styles correctly", () => {
+    const { getByText, getByTestId } = render(
+      <FormInput error="Field is required" label="Test input" />,
+    );
     expect(getByText("Field is required")).toBeInTheDocument();
+
+    const formInputLabel = getByTestId("form-input-label");
+
+    expect(formInputLabel).toHaveStyle("color: var(--red)");
   });
 
   it("toggles text visibility when canToggleTextVisibility is true", () => {
