@@ -59,15 +59,5 @@ describe("Sidebar component", () => {
     expect(dashboardOption).toHaveStyle(`
       border: 1px solid var(--light_gray);
     `);
-
-    // expect(dashboardOption).toBe(true);
-
-    // expect(getComputedStyle(dashboardOption).border);
-
-    // const homeOption = getByText("Dashboard");
-    // const logoutOption = getByText("Sair");
-
-    // expect(homeOption).toHaveClass("active");
-    // expect(logoutOption).not.toHaveClass("active");
   });
 });

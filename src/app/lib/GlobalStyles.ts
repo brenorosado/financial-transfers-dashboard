@@ -3,9 +3,10 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyles = createGlobalStyle`
     :root {
         font-family: 'Inter', sans-serif;
-        --red: #FF7171;
-        --orange: #F7884A;
-        --green: #43F5BD;
+        --red: #F46767;
+        --yellow: #F8C765;
+        --green: #99FF99;
+        --blue: #98C7F4;
         --light_gray: #838383;
         --gray: #1E1E1E;
         --dark_gray: #181818;

@@ -4,18 +4,18 @@ export const SidebarContainer = styled.aside`
   position: fixed;
   left: 0;
   top: 0;
-  width: clamp(48px, 0.5vw, 0.5vw);
   background: var(--dark_gray);
-  height: clamp(32px, 3.33vw, 3.33vw);
+  width: clamp(48px, 3vw, 3vw);
+  height: clamp(40px, 3.33vw, 3.33vw);
 `;
 
 export const ToggleVisibilityButton = styled.button`
   all: unset;
   cursor: pointer;
-  height: clamp(32px, 3.33vw, 3.33vw);
   display: flex;
   align-items: center;
   justify-content: center;
+  height: clamp(32px, 3.33vw, 3.33vw);
   width: 100%;
   color: var(--light_gray);
   font-size: clamp(24px, 1.25vw, 1.25vw);
