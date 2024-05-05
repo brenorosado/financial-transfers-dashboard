@@ -11,11 +11,20 @@ export const DashboardMain = styled.main<{ $showSideBarOptions: boolean }>`
   ${({ $showSideBarOptions }) =>
     $showSideBarOptions &&
     `
-    margin-left: clamp(48px, 0.5vw, 0.5vw);
+    @media (min-width: 768px) {
+      padding-left: calc(clamp(16px, 3.33vw, 3.33vw) + clamp(48px, 0.5vw, 0.5vw));
+    }
   `}
 `;
 
 export const CardsSection = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(16px, 1.25vw, 1.25vw);
+  justify-content: space-between;
+`;
+
+export const ChartsSections = styled.section`
   display: flex;
   flex-wrap: wrap;
   gap: clamp(16px, 1.25vw, 1.25vw);

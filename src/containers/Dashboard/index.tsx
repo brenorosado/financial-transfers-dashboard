@@ -3,9 +3,14 @@
 import { Sidebar } from "@/components/Sidebar";
 import { useCallback, useEffect, useState } from "react";
 import Transactions from "@/../transactions.json";
-import { Transaction, handleTransactions } from "@/utils/handleTransactions";
+import {
+  ChartData,
+  Transaction,
+  handleTransactions,
+} from "@/utils/handleTransactions";
 import * as S from "./styles";
-import { SummaryCard } from "@/components/SummaryCard";
+import { CardTypes, SummaryCard } from "@/components/SummaryCard";
+import { LineChart, BarsChart } from "@/components/Charts";
 
 export type Data = {
   options: {
@@ -24,6 +29,7 @@ export type Data = {
     lastPendingTransactions: Transaction[];
     lastTransactions: Transaction[];
   };
+  chartsData: ChartData[];
 };
 
 const dataInitialValue: Data = {
@@ -43,7 +49,10 @@ const dataInitialValue: Data = {
     lastPendingTransactions: [],
     lastTransactions: [],
   },
+  chartsData: [],
 };
+
+const summaryCards: CardTypes[] = ["income", "expenses", "pending", "balance"];
 
 export const Dashboard = () => {
   const [showOptions, setShowOptions] = useState<boolean>(true);
@@ -67,27 +76,20 @@ export const Dashboard = () => {
       <Sidebar showOptions={showOptions} setShowOptions={setShowOptions} />
 
       <S.CardsSection>
-        <SummaryCard
-          type="income"
-          values={data.values}
-          transactions={data.transactions}
-        />
-        <SummaryCard
-          type="pending"
-          values={data.values}
-          transactions={data.transactions}
-        />
-        <SummaryCard
-          type="expenses"
-          values={data.values}
-          transactions={data.transactions}
-        />
-        <SummaryCard
-          type="balance"
-          values={data.values}
-          transactions={data.transactions}
-        />
+        {summaryCards.map((type) => (
+          <SummaryCard
+            key={type}
+            type={type}
+            values={data.values}
+            transactions={data.transactions}
+          />
+        ))}
       </S.CardsSection>
+
+      <S.ChartsSections>
+        <BarsChart chartsData={data.chartsData} />
+        <LineChart chartsData={data.chartsData} />
+      </S.ChartsSections>
     </S.DashboardMain>
   );
 };

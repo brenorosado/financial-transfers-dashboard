@@ -15,7 +15,7 @@ export const ToggleVisibilityButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: clamp(32px, 3.33vw, 3.33vw);
+  height: clamp(40px, 3.33vw, 3.33vw);
   width: 100%;
   color: var(--light_gray);
   font-size: clamp(24px, 1.25vw, 1.25vw);
@@ -27,7 +27,7 @@ type OptionsListStyleProps = {
 
 export const OptionsList = styled.ul<OptionsListStyleProps>`
   list-style: none;
-  height: calc(100dvh - clamp(32px, 3.33vw, 3.33vw));
+  height: calc(100dvh - clamp(40px, 3.33vw, 3.33vw));
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -21,13 +21,7 @@ export const GlobalStyles = createGlobalStyle`
         color: var(--white);
     }
 
-    body, main {
-        min-width: 100dvh;
-        min-width: 100vw;
-        min-height: 100dvh;
-        min-height: 100vh;
-        overflow-x: hidden;
+    body {
         background: var(--black);
     }
-    
 `;
