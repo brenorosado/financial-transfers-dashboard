@@ -1,5 +1,3 @@
-const DashboardPage = () => {
-  return <main>Dashboard</main>;
-};
+import { Dashboard } from "@/containers/Dashboard";
 
-export default DashboardPage;
+export default Dashboard;
