@@ -50,8 +50,8 @@ export const LineChart = ({ chartsData }: LineChartProps) => {
                 <stop offset="95%" stopColor="var(--blue)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <XAxis dataKey="name" />
-            <YAxis />
+            <XAxis dataKey="name" fontSize="clamp(12px, 0.6vw, 0.6vw)" />
+            <YAxis fontSize="clamp(12px, 0.6vw, 0.6vw)" />
             <CartesianGrid stroke="var(--gray)" horizontal={true} />
             <Tooltip
               formatter={(value) => [

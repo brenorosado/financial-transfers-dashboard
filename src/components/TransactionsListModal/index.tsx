@@ -32,7 +32,7 @@ const TransactionRow = ({
     industry,
     state,
     transaction_type,
-  } = data[index ?? 0];
+  } = data[index];
 
   return (
     <S.Transaction

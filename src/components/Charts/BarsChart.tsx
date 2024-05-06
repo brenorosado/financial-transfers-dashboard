@@ -37,8 +37,8 @@ export const BarsChart = ({ chartsData }: LineChartProps) => {
               </linearGradient>
             </defs>
             <CartesianGrid stroke="var(--gray)" horizontal={true} />
-            <XAxis dataKey="name" />
-            <YAxis />
+            <XAxis dataKey="name" fontSize="clamp(12px, 0.6vw, 0.6vw)" />
+            <YAxis fontSize="clamp(12px, 0.6vw, 0.6vw)" />
             <Tooltip
               formatter={(value, name) => [
                 `${formatBRLCurrency(Number(value), false)}`,
