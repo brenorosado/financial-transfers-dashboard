@@ -3,5 +3,5 @@
   "singleQuote": false,
   "tabWidth": 2,
   "bracketSpacing": true,
-  "endOfLine": "crlf"
+  "endOfLine": "lf"
 }
