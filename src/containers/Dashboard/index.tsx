@@ -3,64 +3,37 @@
 import { Sidebar } from "@/components/Sidebar";
 import { useCallback, useEffect, useState } from "react";
 import Transactions from "@/../transactions.json";
-import {
-  ChartData,
-  Transaction,
-  handleTransactions,
-} from "@/utils/handleTransactions";
+import { Transaction, handleTransactions } from "@/utils/handleTransactions";
 import * as S from "./styles";
-import { CardTypes, SummaryCard } from "@/components/SummaryCard";
+import { SummaryCard } from "@/components/SummaryCard";
 import { LineChart, BarsChart } from "@/components/Charts";
 import { Filters, FiltersOptions } from "@/components/Filters";
+import { Data } from "./types";
+import {
+  dataInitialValue,
+  initialFiltersOptions,
+  summaryCards,
+} from "./constants";
 
-export type Data = {
-  options: {
-    accountOptions: string[];
-    stateOptions: string[];
-    industryOptions: string[];
+const fetchTransactions = async (filters: FiltersOptions): Promise<Data> => {
+  if (typeof window === "undefined") return dataInitialValue;
+
+  const previousOptions = localStorage.getItem("@bix-challenge:options");
+
+  const formattedData = handleTransactions(
+    Transactions as Transaction[],
+    filters,
+    !previousOptions,
+  );
+
+  localStorage.setItem("@bix-challenge:filters", JSON.stringify(filters));
+
+  return {
+    ...formattedData,
+    ...(!!previousOptions
+      ? { options: JSON.parse(previousOptions) }
+      : { options: formattedData.options }),
   };
-  values: {
-    totalExpenses: number;
-    totalIncome: number;
-    totalPending: number;
-  };
-  transactions: {
-    lastDeposits: Transaction[];
-    lastWithdrawals: Transaction[];
-    lastPendingTransactions: Transaction[];
-    lastTransactions: Transaction[];
-  };
-  chartsData: ChartData[];
-};
-
-const dataInitialValue: Data = {
-  options: {
-    accountOptions: [],
-    stateOptions: [],
-    industryOptions: [],
-  },
-  values: {
-    totalExpenses: 0,
-    totalIncome: 0,
-    totalPending: 0,
-  },
-  transactions: {
-    lastDeposits: [],
-    lastWithdrawals: [],
-    lastPendingTransactions: [],
-    lastTransactions: [],
-  },
-  chartsData: [],
-};
-
-const summaryCards: CardTypes[] = ["income", "expenses", "pending", "balance"];
-
-const initialFiltersOptions: FiltersOptions = {
-  industries: [],
-  states: [],
-  accounts: [],
-  startDate: 0,
-  endDate: 0,
 };
 
 export const Dashboard = () => {
@@ -76,41 +49,18 @@ export const Dashboard = () => {
     return initialFiltersOptions;
   });
 
-  const fetchTransactions = useCallback(async () => {
+  const getTransactions = useCallback(async () => {
     try {
-      if (typeof window === "undefined") return;
-
-      const previousOptions = localStorage.getItem("@bix-challenge:options");
-
-      const formattedData = handleTransactions(
-        Transactions as Transaction[],
-        filters,
-        !previousOptions,
-      );
-
-      localStorage.setItem("@bix-challenge:filters", JSON.stringify(filters));
-
-      if (!previousOptions) {
-        localStorage.setItem(
-          "@bix-challenge:options",
-          JSON.stringify(formattedData.options),
-        );
-      }
-
-      setData({
-        ...formattedData,
-        ...(!!previousOptions
-          ? { options: JSON.parse(previousOptions) }
-          : { options: formattedData.options }),
-      });
+      const newData = await fetchTransactions(filters);
+      setData(newData);
     } catch (e) {
       console.log("Error while trying do read transactions file: ", e);
     }
   }, [filters]);
 
   useEffect(() => {
-    fetchTransactions();
-  }, [fetchTransactions]);
+    getTransactions();
+  }, [getTransactions]);
 
   return (
     <S.DashboardMain $showSideBarOptions={showOptions}>

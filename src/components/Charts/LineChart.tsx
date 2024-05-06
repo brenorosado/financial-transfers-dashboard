@@ -16,15 +16,25 @@ type LineChartProps = {
 };
 
 export const LineChart = ({ chartsData }: LineChartProps) => {
+  console.log("chartsData", chartsData);
+
+  const accumulatedChartData = chartsData
+    .slice(-12)
+    .map(({ name, balance }, index) => ({
+      name,
+      balance: balance + (index > 0 ? chartsData[index - 1].balance : 0),
+    }));
+
+  console.log("accumulatedChartData", accumulatedChartData);
   return (
     <S.ChartContainer>
       <S.ChartTitle>Evolução do saldo</S.ChartTitle>
-      {chartsData.length === 0 && (
+      {accumulatedChartData.length === 0 && (
         <S.EmptyLabel>Não há dados para exibir.</S.EmptyLabel>
       )}
-      {chartsData.length > 0 && (
+      {accumulatedChartData.length > 0 && (
         <ResponsiveContainer>
-          <AreaChart width={730} height={250} data={chartsData.slice(-12)}>
+          <AreaChart width={730} height={250} data={accumulatedChartData}>
             <defs>
               <linearGradient id="colorBalance" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="var(--blue)" stopOpacity={0.7} />

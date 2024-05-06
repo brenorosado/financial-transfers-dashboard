@@ -11,9 +11,46 @@ export type Transaction = {
 };
 
 export type ChartData = {
-  name: string;
+  name: `${string}/${string}`;
   expenses: number;
   income: number;
+  balance: number;
+};
+
+const chartDataInitialValue: ChartData = {
+  name: "-/-",
+  expenses: 0,
+  income: 0,
+  balance: 0,
+};
+
+const sortChartData = (a: ChartData, b: ChartData) => {
+  const dateA = Number(new Date(`20${a.name.split("/").reverse().join("-")}`));
+  const dateB = Number(new Date(`20${b.name.split("/").reverse().join("-")}`));
+  return dateA - dateB;
+};
+
+const filterTransaction = (
+  transaction: Transaction,
+  filters: FiltersOptions,
+) => {
+  const conditions: boolean[] = [];
+
+  if (filters.accounts.length > 0)
+    conditions.push(filters.accounts.includes(transaction.account));
+
+  if (filters.states.length > 0)
+    conditions.push(filters.states.includes(transaction.state));
+
+  if (filters.industries.length > 0)
+    conditions.push(filters.industries.includes(transaction.industry));
+
+  if (filters.startDate > 0)
+    conditions.push(filters.startDate <= transaction.date);
+
+  if (filters.endDate > 0) conditions.push(filters.endDate >= transaction.date);
+
+  return conditions.every((condition) => condition);
 };
 
 export const handleTransactions = (
@@ -27,12 +64,30 @@ export const handleTransactions = (
   const lastDeposits: Transaction[] = [];
   const lastWithdrawals: Transaction[] = [];
   const lastPendingTransactions: Transaction[] = [];
+  const chartsData: ChartData[] = [];
   let totalIncome: number = 0;
   let totalExpenses: number = 0;
   let totalPending: number = 0;
-  const chartsData: ChartData[] = [];
 
   const nowMiliseconds = Number(new Date());
+
+  const manageOptions = (transaction: Transaction) => {
+    const { account, state, industry } = transaction;
+
+    if (mustReturnOptions) {
+      if (!accountOptions.includes(account)) {
+        accountOptions.push(account);
+      }
+
+      if (!stateOptions.includes(state)) {
+        stateOptions.push(state);
+      }
+
+      if (!industryOptions.includes(industry)) {
+        industryOptions.push(industry);
+      }
+    }
+  };
 
   const manageLastTransactions = (transaction: Transaction) => {
     const arrayToManage =
@@ -70,98 +125,66 @@ export const handleTransactions = (
       (data) => data.name === `${transactionMonth}/${transactionYear}`,
     );
 
+    const propToChange =
+      transaction.transaction_type === "deposit" ? "income" : "expenses";
+
     if (indexToAggregate !== -1) {
       chartsData[indexToAggregate] = {
         ...chartsData[indexToAggregate],
-        ...(transaction.transaction_type === "deposit"
-          ? {
-              income:
-                chartsData[indexToAggregate].income +
-                parseInt(transaction.amount),
-            }
-          : {
-              expenses:
-                chartsData[indexToAggregate].expenses +
-                parseInt(transaction.amount),
-            }),
+        [propToChange]:
+          chartsData[indexToAggregate][propToChange] +
+          parseInt(transaction.amount),
       };
       return;
     }
 
     chartsData.push({
+      ...chartDataInitialValue,
       name: `${transactionMonth}/${transactionYear}`,
-      ...(transaction.transaction_type === "deposit"
-        ? {
-            income: parseInt(transaction.amount),
-            expenses: 0,
-          }
-        : {
-            expenses: parseInt(transaction.amount),
-            income: 0,
-          }),
+      [propToChange]: parseInt(transaction.amount),
     });
   };
 
-  console.log("filters", filters);
+  const manageAccumulators = (transaction: Transaction) => {
+    const { transaction_type, amount, date } = transaction;
+    if (transaction_type === "deposit") {
+      totalIncome += parseInt(amount);
+
+      if (nowMiliseconds < date) {
+        totalPending += parseInt(amount);
+      }
+    }
+
+    if (transaction_type === "withdraw") {
+      totalExpenses += parseInt(amount);
+
+      if (nowMiliseconds < date) {
+        totalPending -= parseInt(amount);
+      }
+    }
+  };
 
   transactions
-    .filter((transaction) => {
-      const conditions: boolean[] = [];
-
-      if (filters.accounts.length > 0)
-        conditions.push(filters.accounts.includes(transaction.account));
-
-      if (filters.states.length > 0)
-        conditions.push(filters.states.includes(transaction.state));
-
-      if (filters.industries.length > 0)
-        conditions.push(filters.industries.includes(transaction.industry));
-
-      if (filters.startDate > 0)
-        conditions.push(filters.startDate <= transaction.date);
-
-      if (filters.endDate > 0)
-        conditions.push(filters.endDate >= transaction.date);
-
-      return conditions.every((condition) => condition);
-    })
+    .filter((transaction) => filterTransaction(transaction, filters))
     .forEach((transaction) => {
-      const { account, state, industry, transaction_type, amount, date } =
-        transaction;
-
-      if (mustReturnOptions) {
-        if (!accountOptions.includes(account)) {
-          accountOptions.push(account);
-        }
-
-        if (!stateOptions.includes(state)) {
-          stateOptions.push(state);
-        }
-
-        if (!industryOptions.includes(industry)) {
-          industryOptions.push(industry);
-        }
-      }
-
+      manageOptions(transaction);
       manageLastTransactions(transaction);
       manageChartData(transaction);
-
-      if (transaction_type === "deposit") {
-        totalIncome += parseInt(amount);
-
-        if (nowMiliseconds < date) {
-          totalPending += parseInt(amount);
-        }
-      }
-
-      if (transaction_type === "withdraw") {
-        totalExpenses += parseInt(amount);
-
-        if (nowMiliseconds < date) {
-          totalPending -= parseInt(amount);
-        }
-      }
+      manageAccumulators(transaction);
     });
+
+  const formattedChartData = chartsData
+    .sort(sortChartData)
+    .map((chartData) => ({
+      ...chartData,
+      income: chartData.income / 100,
+      expenses: chartData.expenses / 100,
+      balance: (chartData.income - chartData.expenses) / 100,
+    }));
+
+  const lastTransactions = [...lastDeposits, ...lastWithdrawals]
+    .sort((a, b) => a.date - b.date)
+    .splice(0, 3);
 
   return {
     options: {
@@ -178,25 +201,8 @@ export const handleTransactions = (
       lastDeposits,
       lastWithdrawals,
       lastPendingTransactions,
-      lastTransactions: [...lastDeposits, ...lastWithdrawals]
-        .sort((a, b) => a.date - b.date)
-        .splice(0, 3),
+      lastTransactions,
     },
-    chartsData: chartsData
-      .sort((a, b) => {
-        const dateA = Number(
-          new Date(`20${a.name.split("/").reverse().join("-")}`),
-        );
-        const dateB = Number(
-          new Date(`20${b.name.split("/").reverse().join("-")}`),
-        );
-        return dateA - dateB;
-      })
-      .map((d) => ({
-        ...d,
-        income: d.income / 100,
-        expenses: d.expenses / 100,
-        balance: (d.income - d.expenses) / 100,
-      })),
+    chartsData: formattedChartData,
   };
 };
