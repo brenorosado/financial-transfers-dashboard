@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const SelectWrapper = styled.div`
   position: relative;
+  flex: 1;
 `;
 
 export const SelectContainer = styled.div`
@@ -9,6 +10,7 @@ export const SelectContainer = styled.div`
   border-radius: clamp(8px, 0.42vw, 0.42vw);
   display: flex;
   flex-wrap: no-wrap;
+  min-width: 140px;
 
   input {
     all: unset;
@@ -89,6 +91,7 @@ export const Option = styled.div<OptionsStyleProps>`
   span {
     font-size: clamp(12px, 0.833vw, 0.833vw);
     padding-right: clamp(8px, 0.42vw, 0.42vw);
+    text-align: right;
   }
 `;
 

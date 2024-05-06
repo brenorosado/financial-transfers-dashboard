@@ -102,18 +102,26 @@ export const handleTransactions = (
     });
   };
 
+  console.log("filters", filters);
+
   transactions
-    .filter((transation) => {
+    .filter((transaction) => {
       const conditions: boolean[] = [];
 
       if (filters.accounts.length > 0)
-        conditions.push(filters.accounts.includes(transation.account));
+        conditions.push(filters.accounts.includes(transaction.account));
 
       if (filters.states.length > 0)
-        conditions.push(filters.states.includes(transation.state));
+        conditions.push(filters.states.includes(transaction.state));
 
       if (filters.industries.length > 0)
-        conditions.push(filters.industries.includes(transation.industry));
+        conditions.push(filters.industries.includes(transaction.industry));
+
+      if (filters.startDate > 0)
+        conditions.push(filters.startDate <= transaction.date);
+
+      if (filters.endDate > 0)
+        conditions.push(filters.endDate >= transaction.date);
 
       return conditions.every((condition) => condition);
     })

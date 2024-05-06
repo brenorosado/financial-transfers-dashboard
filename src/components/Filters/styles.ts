@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const FiltersContainer = styled.section`
+export const FiltersContainer = styled.div`
   display: flex;
-  gap: clamp(8px, 0.833vw, 0.833vw);
+  flex-wrap: wrap;
+  gap: clamp(16px, 0.833vw, 0.833vw);
 `;

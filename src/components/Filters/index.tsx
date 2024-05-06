@@ -8,6 +8,7 @@ import {
 import * as S from "./styles";
 import { Select } from "../Select";
 import { Data } from "@/containers/Dashboard";
+import { DateRangeInput } from "../DateRangeInput";
 
 export type FiltersOptions = {
   industries: string[];
@@ -52,6 +53,16 @@ export const Filters = ({ options, filters, setFilters }: FilterProps) => {
     });
   };
 
+  const onChangeDate = (
+    dateString: string,
+    dateProp: "startDate" | "endDate",
+  ) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [dateProp]: Number(new Date(dateString)),
+    }));
+  };
+
   return (
     <S.FiltersContainer>
       <Select
@@ -61,6 +72,7 @@ export const Filters = ({ options, filters, setFilters }: FilterProps) => {
         onSelectOption={(account: string) => onSelect(account, "accounts")}
         onRemoveAll={() => onRemoveAll("accounts")}
       />
+      <DateRangeInput onChangeDate={onChangeDate} />
       <Select
         placeholder="Selecione o estado"
         options={options.stateOptions}

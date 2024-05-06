@@ -59,8 +59,8 @@ const initialFiltersOptions: FiltersOptions = {
   industries: [],
   states: [],
   accounts: [],
-  startDate: Number(new Date()),
-  endDate: Number(new Date()),
+  startDate: 0,
+  endDate: 0,
 };
 
 export const Dashboard = () => {
@@ -98,16 +98,6 @@ export const Dashboard = () => {
     }
   }, [filters]);
 
-  // const checkStoragedFilters = useCallback(() => {
-  //   if (typeof window === "undefined") return;
-
-  //   const storagedFilters = localStorage.getItem("@bix-challenge:filters");
-
-  //   if (storagedFilters) setFilters(JSON.parse(storagedFilters));
-  // }, [setFilters]);
-
-  // useEffect(() => {}, [checkStoragedFilters]);
-
   useEffect(() => {
     fetchTransactions();
   }, [fetchTransactions]);
@@ -116,11 +106,14 @@ export const Dashboard = () => {
     <S.DashboardMain $showSideBarOptions={showOptions}>
       <Sidebar showOptions={showOptions} setShowOptions={setShowOptions} />
 
-      <Filters
-        options={data.options}
-        filters={filters}
-        setFilters={setFilters}
-      />
+      <S.Header>
+        <h2>Olá, usuário</h2>
+        <Filters
+          options={data.options}
+          filters={filters}
+          setFilters={setFilters}
+        />
+      </S.Header>
 
       <S.CardsSection>
         {summaryCards.map((type) => (

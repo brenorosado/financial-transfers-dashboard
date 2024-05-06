@@ -17,3 +17,8 @@ export const ChartTitle = styled.span`
   font-size: clamp(20px, 1vw, 1vw);
   font-weight: bold;
 `;
+
+export const EmptyLabel = styled.span`
+  color: var(--light_gray);
+  font-size: clamp(12px, 0.833vw, 0.833vw);
+`;

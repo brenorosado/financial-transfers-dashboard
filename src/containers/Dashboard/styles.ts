@@ -17,6 +17,18 @@ export const DashboardMain = styled.main<{ $showSideBarOptions: boolean }>`
   `}
 `;
 
+export const Header = styled.section`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(16px, 0.833vw, 0.833vw);
+
+  h2 {
+    font-size: clamp(16px, 1.25vw, 1.25vw);
+  }
+`;
+
 export const CardsSection = styled.section`
   display: flex;
   flex-wrap: wrap;

@@ -7,6 +7,7 @@ export const SidebarContainer = styled.aside`
   background: var(--dark_gray);
   width: clamp(48px, 3vw, 3vw);
   height: clamp(40px, 3.33vw, 3.33vw);
+  z-index: 9;
 `;
 
 export const ToggleVisibilityButton = styled.button`
