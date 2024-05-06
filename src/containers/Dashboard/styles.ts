@@ -42,3 +42,21 @@ export const ChartsSections = styled.section`
   gap: clamp(16px, 1.25vw, 1.25vw);
   justify-content: space-between;
 `;
+
+export const TransactionsListSection = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ListTransactionsButton = styled.button`
+  all: unset;
+  cursor: pointer;
+  padding: clamp(8px, 0.833vw, 0.833vw);
+  font-size: clamp(8px, 0.833vw, 0.833vw);
+  transition: 0.2s;
+
+  &:hover {
+    color: var(--light_gray);
+  }
+`;

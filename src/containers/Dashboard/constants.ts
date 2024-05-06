@@ -20,6 +20,7 @@ export const dataInitialValue: Data = {
     lastTransactions: [],
   },
   chartsData: [],
+  transactionsList: [],
 };
 
 export const summaryCards: CardTypes[] = [

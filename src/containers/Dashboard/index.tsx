@@ -1,7 +1,7 @@
 "use client";
 
 import { Sidebar } from "@/components/Sidebar";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Transactions from "@/../transactions.json";
 import { Transaction, handleTransactions } from "@/utils/handleTransactions";
 import * as S from "./styles";
@@ -14,6 +14,7 @@ import {
   initialFiltersOptions,
   summaryCards,
 } from "./constants";
+import { TransactionsListModal } from "@/components/TransactionsListModal";
 
 const fetchTransactions = async (filters: FiltersOptions): Promise<Data> => {
   if (typeof window === "undefined") return dataInitialValue;
@@ -49,6 +50,16 @@ export const Dashboard = () => {
     return initialFiltersOptions;
   });
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const openModal = () => {
+    if (modalRef.current) modalRef.current.style.display = "flex";
+  };
+
+  const closeModal = () => {
+    if (modalRef.current) modalRef.current.style.display = "none";
+  };
+
   const getTransactions = useCallback(async () => {
     try {
       const newData = await fetchTransactions(filters);
@@ -64,6 +75,12 @@ export const Dashboard = () => {
 
   return (
     <S.DashboardMain $showSideBarOptions={showOptions}>
+      <TransactionsListModal
+        transactions={data.transactionsList}
+        modalRef={modalRef}
+        onClose={closeModal}
+      />
+
       <Sidebar showOptions={showOptions} setShowOptions={setShowOptions} />
 
       <S.Header>
@@ -90,6 +107,12 @@ export const Dashboard = () => {
         <BarsChart chartsData={data.chartsData} />
         <LineChart chartsData={data.chartsData} />
       </S.ChartsSections>
+
+      <S.TransactionsListSection>
+        <S.ListTransactionsButton onClick={openModal}>
+          Listar transações
+        </S.ListTransactionsButton>
+      </S.TransactionsListSection>
     </S.DashboardMain>
   );
 };

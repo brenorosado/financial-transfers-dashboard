@@ -1,3 +1,5 @@
+import { Transaction } from "./handleTransactions";
+
 export const formatBRLCurrency = (
   rawValue: number,
   isCents: boolean = true,
@@ -22,4 +24,15 @@ export const formatDateFromMiliseconds = (miliseconds: number) => {
   const [date, time] = stringifiedDate.split(", ");
 
   return `${time} ${date}`;
+};
+
+export const transformAmount = (
+  amount: number,
+  transactionType: Transaction["transaction_type"],
+) => {
+  if (transactionType === "withdraw") {
+    return amount * -1;
+  }
+
+  return amount;
 };

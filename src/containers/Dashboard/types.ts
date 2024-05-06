@@ -18,4 +18,5 @@ export type Data = {
     lastTransactions: Transaction[];
   };
   chartsData: ChartData[];
+  transactionsList: Transaction[];
 };

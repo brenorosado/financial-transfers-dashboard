@@ -1,10 +1,11 @@
-import { Data } from "@/containers/Dashboard";
 import * as S from "./styles";
 import {
   formatBRLCurrency,
   formatDateFromMiliseconds,
+  transformAmount,
 } from "@/utils/formatting";
 import { Transaction } from "@/utils/handleTransactions";
+import { Data } from "@/containers/Dashboard/types";
 
 export type CardTypes = "expenses" | "income" | "pending" | "balance";
 
@@ -41,17 +42,6 @@ const getCardInfo = ({ type, values, transactions }: SummaryCardProps) => {
   return titles[type]
     ? { ...titles[type], amount: formatBRLCurrency(titles[type].amount) }
     : { title: "-", amount: "R$ 0,00", transactionsToList: [] };
-};
-
-const transformAmount = (
-  amount: number,
-  transactionType: Transaction["transaction_type"],
-) => {
-  if (transactionType === "withdraw") {
-    return amount * -1;
-  }
-
-  return amount;
 };
 
 export const SummaryCard = ({
