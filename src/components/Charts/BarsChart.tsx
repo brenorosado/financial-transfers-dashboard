@@ -48,7 +48,20 @@ export const BarsChart = ({ chartsData }: LineChartProps) => {
               }}
               cursor={{ fill: "var(--gray)" }}
             />
-            <Legend />
+            <Legend
+              payload={[
+                {
+                  id: "expenses",
+                  value: "Despesas",
+                  color: "url(#colorExpenses)",
+                },
+                {
+                  id: "income",
+                  value: "Receitas",
+                  color: "url(#colorIncome)",
+                },
+              ]}
+            />
             <Bar
               dataKey="expenses"
               type="monotone"

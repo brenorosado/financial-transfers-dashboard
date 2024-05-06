@@ -60,7 +60,15 @@ export const LineChart = ({ chartsData }: LineChartProps) => {
               fillOpacity={1}
               fill="url(#colorBalance)"
             />
-            <Legend />
+            <Legend
+              payload={[
+                {
+                  id: "balance",
+                  value: "Saldo",
+                  color: "url(#colorBalance)",
+                },
+              ]}
+            />
           </AreaChart>
         </ResponsiveContainer>
       )}
