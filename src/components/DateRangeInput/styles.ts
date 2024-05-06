@@ -5,12 +5,23 @@ export const DateRangeInputContainer = styled.div`
   border-radius: clamp(8px, 0.42vw, 0.42vw);
   display: flex;
   align-items: center;
-  flex-wrap: no-wrap;
+  justy-content: space-between;
+  min-width: 360px;
   flex: 1;
+
+  @media (max-width: 550px) {
+    flex-wrap: wrap;
+    width: 100%;
+
+    span {
+      flex: 1;
+    }
+  }
 
   span {
     font-size: clamp(12px, 0.833vw, 0.833vw);
     color: var(--light_gray);
+    text-align: center;
   }
 
   ::-webkit-calendar-picker-indicator {
