@@ -5,6 +5,8 @@ export const LoginMain = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100dvh;
+  height: 100vh;
 
   section {
     width: clamp(296px, 20vw, 20vw);

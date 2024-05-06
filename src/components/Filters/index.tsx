@@ -72,7 +72,7 @@ export const Filters = ({ options, filters, setFilters }: FilterProps) => {
         onSelectOption={(account: string) => onSelect(account, "accounts")}
         onRemoveAll={() => onRemoveAll("accounts")}
       />
-      <DateRangeInput onChangeDate={onChangeDate} />
+      <DateRangeInput onChangeDate={onChangeDate} filters={filters} />
       <Select
         placeholder="Selecione o estado"
         options={options.stateOptions}

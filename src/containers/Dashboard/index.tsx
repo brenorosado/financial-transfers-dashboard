@@ -66,7 +66,15 @@ const initialFiltersOptions: FiltersOptions = {
 export const Dashboard = () => {
   const [showOptions, setShowOptions] = useState<boolean>(true);
   const [data, setData] = useState<Data>(dataInitialValue);
-  const [filters, setFilters] = useState<FiltersOptions>(initialFiltersOptions);
+  const [filters, setFilters] = useState<FiltersOptions>(() => {
+    if (typeof window === "undefined") return initialFiltersOptions;
+
+    const storagedFilters = localStorage.getItem("@bix-challenge:filters");
+
+    if (storagedFilters) return JSON.parse(storagedFilters);
+
+    return initialFiltersOptions;
+  });
 
   const fetchTransactions = useCallback(async () => {
     try {
@@ -79,6 +87,8 @@ export const Dashboard = () => {
         filters,
         !previousOptions,
       );
+
+      localStorage.setItem("@bix-challenge:filters", JSON.stringify(filters));
 
       if (!previousOptions) {
         localStorage.setItem(
