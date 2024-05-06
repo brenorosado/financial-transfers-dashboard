@@ -7,7 +7,7 @@ import {
 } from "react";
 import * as S from "./styles";
 import { Select } from "../Select";
-import { Data } from "@/containers/Dashboard";
+import { Data } from "@/containers/Dashboard/types";
 import { DateRangeInput } from "../DateRangeInput";
 
 export type FiltersOptions = {
