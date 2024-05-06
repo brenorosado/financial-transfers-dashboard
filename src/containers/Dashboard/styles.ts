@@ -26,6 +26,7 @@ export const Header = styled.section`
 
   h2 {
     font-size: clamp(16px, 1.25vw, 1.25vw);
+    color: var(--light_gray);
   }
 `;
 
@@ -55,8 +56,9 @@ export const ListTransactionsButton = styled.button`
   padding: clamp(8px, 0.833vw, 0.833vw);
   font-size: clamp(8px, 0.833vw, 0.833vw);
   transition: 0.2s;
+  color: var(--light_gray);
 
   &:hover {
-    color: var(--light_gray);
+    color: var(--white);
   }
 `;

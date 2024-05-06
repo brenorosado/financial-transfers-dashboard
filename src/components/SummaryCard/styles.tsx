@@ -9,7 +9,8 @@ const CardTypeColorModifiers = {
 };
 
 export const SummaryCardContainer = styled.div`
-  border: 1px solid var(--light_gray);
+  border: 1px solid var(--gray);
+  background: var(--dark_gray);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -65,6 +66,10 @@ export const Transaction = styled.div<TransactionStyleProps>`
   div {
     display: flex;
     flex-direction: column;
+
+    span {
+      color: var(--light_gray);
+    }
 
     span:first-child {
       font-size: clamp(12px, 0.833vw, 0.833vw);

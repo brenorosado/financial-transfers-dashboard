@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 export const DateRangeInputContainer = styled.div`
-  border: 1px solid gray;
+  border: 1px solid var(--gray);
+  background: var(--dark_gray);
   border-radius: clamp(8px, 0.42vw, 0.42vw);
   display: flex;
   align-items: center;
   justy-content: space-between;
-  min-width: 360px;
   flex: 1;
 
   @media (max-width: 550px) {
     flex-wrap: wrap;
-    width: 100%;
+    min-width: 100%;
 
     span {
       flex: 1;
@@ -25,7 +25,7 @@ export const DateRangeInputContainer = styled.div`
   }
 
   ::-webkit-calendar-picker-indicator {
-    filter: invert(1);
+    filter: invert(0.5);
   }
 
   input {
@@ -35,5 +35,6 @@ export const DateRangeInputContainer = styled.div`
     border-radius: clamp(8px, 0.42vw, 0.42vw);
     font-size: clamp(12px, 0.833vw, 0.833vw);
     color-scheme: light;
+    color: var(--light_gray);
   }
 `;

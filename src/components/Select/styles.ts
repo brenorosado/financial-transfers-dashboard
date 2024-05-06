@@ -6,7 +6,8 @@ export const SelectWrapper = styled.div`
 `;
 
 export const SelectContainer = styled.div`
-  border: 1px solid gray;
+  border: 1px solid var(--gray);
+  background: var(--dark_gray);
   border-radius: clamp(8px, 0.42vw, 0.42vw);
   display: flex;
   flex-wrap: no-wrap;
@@ -18,6 +19,7 @@ export const SelectContainer = styled.div`
     padding: clamp(4px, 0.42vw, 0.42vw);
     border-radius: clamp(8px, 0.42vw, 0.42vw);
     font-size: clamp(12px, 0.833vw, 0.833vw);
+    color: var(--light_gray);
   }
 `;
 
@@ -51,12 +53,12 @@ export const OptionsContainer = styled.div`
     font-size: clamp(12px, 0.833vw, 0.833vw);
     padding: clamp(4px, 0.42vw, 0.42vw);
     border-radius: clamp(8px, 0.42vw, 0.42vw);
-    border: 1px solid var(--white);
+    border: 1px solid var(--light_gray);
     cursor: pointer;
 
     &:last-child {
-      background: white;
-      color: var(--gray);
+      background: var(--light_gray);
+      color: var(white);
     }
   }
 `;
@@ -88,10 +90,22 @@ export const Option = styled.div<OptionsStyleProps>`
     ${({ selected }) => selected && "background: var(--light_gray);"}
   }
 
+  &:hover {
+    span {
+      color: var(--white);
+    }
+
+    div {
+      border: 1px solid var(--white);
+      ${({ selected }) => selected && "background: var(--white);"}
+    }
+  }
+
   span {
     font-size: clamp(12px, 0.833vw, 0.833vw);
     padding-right: clamp(8px, 0.42vw, 0.42vw);
     text-align: right;
+    color: var(--light_gray);
   }
 `;
 

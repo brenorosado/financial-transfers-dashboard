@@ -36,7 +36,10 @@ export const Select = ({
         <input
           placeholder={placeholder}
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            if (!showOptions) setShowOptions(true);
+          }}
         />
         <S.IconContainer>
           <MdOutlineKeyboardArrowDown />
@@ -63,8 +66,10 @@ export const Select = ({
           </S.OptionsList>
           <button
             onClick={() => {
-              onRemoveAll();
+              setSearch("");
               setShowOptions(false);
+              if (selectedOptions.length === 0) return;
+              onRemoveAll();
             }}
           >
             Remover todos

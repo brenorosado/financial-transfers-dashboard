@@ -36,12 +36,14 @@ export const Header = styled.div`
 
   h3 {
     font-size: clamp(16px, 1.25vw, 1.25vw);
+    color: var(--light_gray);
   }
 
   button {
     all: unset;
     cursor: pointer;
     font-size: clamp(16px, 1.25vw, 1.25vw);
+    }
   }
 `;
 

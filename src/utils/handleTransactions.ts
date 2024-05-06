@@ -164,14 +164,16 @@ export const handleTransactions = (
     }
   };
 
-  transactions
-    .filter((transaction) => filterTransaction(transaction, filters))
-    .forEach((transaction) => {
-      manageOptions(transaction);
-      manageLastTransactions(transaction);
-      manageChartData(transaction);
-      manageAccumulators(transaction);
-    });
+  const filteredTransactions = transactions.filter((transaction) =>
+    filterTransaction(transaction, filters),
+  );
+
+  filteredTransactions.forEach((transaction) => {
+    manageOptions(transaction);
+    manageLastTransactions(transaction);
+    manageChartData(transaction);
+    manageAccumulators(transaction);
+  });
 
   const formattedChartData = chartsData
     .sort(sortChartData)
@@ -183,7 +185,7 @@ export const handleTransactions = (
     }));
 
   const lastTransactions = [...lastDeposits, ...lastWithdrawals]
-    .sort((a, b) => a.date - b.date)
+    .sort((a, b) => b.date - a.date)
     .splice(0, 3);
 
   return {
@@ -204,6 +206,6 @@ export const handleTransactions = (
       lastTransactions,
     },
     chartsData: formattedChartData,
-    transactionsList: transactions,
+    transactionsList: filteredTransactions,
   };
 };
