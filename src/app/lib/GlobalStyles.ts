@@ -19,6 +19,22 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         color: var(--white);
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light_gray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--black);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--dark_gray);
+        }
     }
 
     body {

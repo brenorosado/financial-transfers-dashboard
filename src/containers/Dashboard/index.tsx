@@ -11,6 +11,7 @@ import {
 import * as S from "./styles";
 import { CardTypes, SummaryCard } from "@/components/SummaryCard";
 import { LineChart, BarsChart } from "@/components/Charts";
+import { Filters, FiltersOptions } from "@/components/Filters";
 
 export type Data = {
   options: {
@@ -54,18 +55,58 @@ const dataInitialValue: Data = {
 
 const summaryCards: CardTypes[] = ["income", "expenses", "pending", "balance"];
 
+const initialFiltersOptions: FiltersOptions = {
+  industries: [],
+  states: [],
+  accounts: [],
+  startDate: Number(new Date()),
+  endDate: Number(new Date()),
+};
+
 export const Dashboard = () => {
   const [showOptions, setShowOptions] = useState<boolean>(true);
   const [data, setData] = useState<Data>(dataInitialValue);
+  const [filters, setFilters] = useState<FiltersOptions>(initialFiltersOptions);
 
   const fetchTransactions = useCallback(async () => {
     try {
-      const formattedData = handleTransactions(Transactions as Transaction[]);
-      setData(formattedData);
+      if (typeof window === "undefined") return;
+
+      const previousOptions = localStorage.getItem("@bix-challenge:options");
+
+      const formattedData = handleTransactions(
+        Transactions as Transaction[],
+        filters,
+        !previousOptions,
+      );
+
+      if (!previousOptions) {
+        localStorage.setItem(
+          "@bix-challenge:options",
+          JSON.stringify(formattedData.options),
+        );
+      }
+
+      setData({
+        ...formattedData,
+        ...(!!previousOptions
+          ? { options: JSON.parse(previousOptions) }
+          : { options: formattedData.options }),
+      });
     } catch (e) {
       console.log("Error while trying do read transactions file: ", e);
     }
-  }, []);
+  }, [filters]);
+
+  // const checkStoragedFilters = useCallback(() => {
+  //   if (typeof window === "undefined") return;
+
+  //   const storagedFilters = localStorage.getItem("@bix-challenge:filters");
+
+  //   if (storagedFilters) setFilters(JSON.parse(storagedFilters));
+  // }, [setFilters]);
+
+  // useEffect(() => {}, [checkStoragedFilters]);
 
   useEffect(() => {
     fetchTransactions();
@@ -74,6 +115,12 @@ export const Dashboard = () => {
   return (
     <S.DashboardMain $showSideBarOptions={showOptions}>
       <Sidebar showOptions={showOptions} setShowOptions={setShowOptions} />
+
+      <Filters
+        options={data.options}
+        filters={filters}
+        setFilters={setFilters}
+      />
 
       <S.CardsSection>
         {summaryCards.map((type) => (

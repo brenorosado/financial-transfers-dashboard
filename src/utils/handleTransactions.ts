@@ -1,3 +1,5 @@
+import { FiltersOptions } from "@/components/Filters";
+
 export type Transaction = {
   account: string;
   amount: string;
@@ -14,7 +16,11 @@ export type ChartData = {
   income: number;
 };
 
-export const handleTransactions = (transactions: Transaction[]) => {
+export const handleTransactions = (
+  transactions: Transaction[],
+  filters: FiltersOptions,
+  mustReturnOptions: boolean = true,
+) => {
   const accountOptions: string[] = [];
   const stateOptions: string[] = [];
   const industryOptions: string[] = [];
@@ -96,41 +102,58 @@ export const handleTransactions = (transactions: Transaction[]) => {
     });
   };
 
-  transactions.forEach((transaction) => {
-    const { account, state, industry, transaction_type, amount, date } =
-      transaction;
+  transactions
+    .filter((transation) => {
+      const conditions: boolean[] = [];
 
-    if (!accountOptions.includes(account)) {
-      accountOptions.push(account);
-    }
+      if (filters.accounts.length > 0)
+        conditions.push(filters.accounts.includes(transation.account));
 
-    if (!stateOptions.includes(state)) {
-      stateOptions.push(state);
-    }
+      if (filters.states.length > 0)
+        conditions.push(filters.states.includes(transation.state));
 
-    if (!industryOptions.includes(industry)) {
-      industryOptions.push(industry);
-    }
+      if (filters.industries.length > 0)
+        conditions.push(filters.industries.includes(transation.industry));
 
-    manageLastTransactions(transaction);
-    manageChartData(transaction);
+      return conditions.every((condition) => condition);
+    })
+    .forEach((transaction) => {
+      const { account, state, industry, transaction_type, amount, date } =
+        transaction;
 
-    if (transaction_type === "deposit") {
-      totalIncome += parseInt(amount);
+      if (mustReturnOptions) {
+        if (!accountOptions.includes(account)) {
+          accountOptions.push(account);
+        }
 
-      if (nowMiliseconds < date) {
-        totalPending += parseInt(amount);
+        if (!stateOptions.includes(state)) {
+          stateOptions.push(state);
+        }
+
+        if (!industryOptions.includes(industry)) {
+          industryOptions.push(industry);
+        }
       }
-    }
 
-    if (transaction_type === "withdraw") {
-      totalExpenses += parseInt(amount);
+      manageLastTransactions(transaction);
+      manageChartData(transaction);
 
-      if (nowMiliseconds < date) {
-        totalPending -= parseInt(amount);
+      if (transaction_type === "deposit") {
+        totalIncome += parseInt(amount);
+
+        if (nowMiliseconds < date) {
+          totalPending += parseInt(amount);
+        }
       }
-    }
-  });
+
+      if (transaction_type === "withdraw") {
+        totalExpenses += parseInt(amount);
+
+        if (nowMiliseconds < date) {
+          totalPending -= parseInt(amount);
+        }
+      }
+    });
 
   return {
     options: {
