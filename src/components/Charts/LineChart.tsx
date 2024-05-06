@@ -10,18 +10,30 @@ import {
 } from "recharts";
 import * as S from "./styles";
 import { ChartData } from "@/utils/handleTransactions";
+import { formatBRLCurrency } from "@/utils/formatting";
 
 type LineChartProps = {
   chartsData: ChartData[];
 };
 
 export const LineChart = ({ chartsData }: LineChartProps) => {
-  const accumulatedChartData = chartsData
-    .slice(-12)
-    .map(({ name, balance }, index) => ({
+  const slicedChartData = chartsData.slice(-12);
+
+  const accumulatedChartData = slicedChartData.map(
+    ({ name, balance }, index) => ({
       name,
-      balance: balance + (index > 0 ? chartsData[index - 1].balance : 0),
-    }));
+      balance:
+        index > 0
+          ? slicedChartData
+              .slice(0, index)
+              .reduce(
+                (accumulator, currentValue) =>
+                  accumulator + currentValue.balance,
+                balance,
+              )
+          : balance,
+    }),
+  );
 
   return (
     <S.ChartContainer>
@@ -42,6 +54,10 @@ export const LineChart = ({ chartsData }: LineChartProps) => {
             <YAxis />
             <CartesianGrid stroke="var(--gray)" horizontal={true} />
             <Tooltip
+              formatter={(value) => [
+                `${formatBRLCurrency(Number(value), false)}`,
+                "Saldo",
+              ]}
               contentStyle={{
                 backgroundColor: "rgba(0, 0, 0, 0.3)",
                 borderRadius: "clamp(8px, 0.833vw, 0.833vw)",

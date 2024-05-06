@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import * as S from "./styles";
+import { formatBRLCurrency } from "@/utils/formatting";
 
 type LineChartProps = {
   chartsData: ChartData[];
@@ -39,6 +40,10 @@ export const BarsChart = ({ chartsData }: LineChartProps) => {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip
+              formatter={(value, name) => [
+                `${formatBRLCurrency(Number(value), false)}`,
+                name === "expenses" ? "Despesas" : "Receitas",
+              ]}
               contentStyle={{
                 backgroundColor: "rgba(0, 0, 0, 0.3)",
                 borderRadius: "clamp(8px, 0.833vw, 0.833vw)",

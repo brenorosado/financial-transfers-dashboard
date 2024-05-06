@@ -204,5 +204,6 @@ export const handleTransactions = (
       lastTransactions,
     },
     chartsData: formattedChartData,
+    transactionsList: transactions,
   };
 };

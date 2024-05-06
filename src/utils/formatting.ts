@@ -1,5 +1,8 @@
-export const formatBRLCurrency = (centsValue: number) => {
-  const value = centsValue / 100;
+export const formatBRLCurrency = (
+  rawValue: number,
+  isCents: boolean = true,
+) => {
+  const value = isCents ? rawValue / 100 : rawValue;
 
   return value.toLocaleString("pt-br", {
     style: "currency",
