@@ -59,4 +59,27 @@ export const Option = styled.li<OptionStyleProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.2s;
+
+  &:hover {
+    border: 1px solid var(--light_gray);
+
+    span {
+      opacity: 1;
+      display: inline-block;
+    }
+  }
+`;
+
+export const HintText = styled.span`
+  display: none;
+  opacity: 0;
+  position: absolute;
+  left: 120%;
+  z-index: 9;
+  background: var(--black);
+  border: 1px solid var(--light_gray);
+  border-radius: clamp(8px, 0.42vw, 0.42vw);
+  padding: clamp(8px, 0.42vw, 0.42vw);
+  transition: 0.2s;
 `;

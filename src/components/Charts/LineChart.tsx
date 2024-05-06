@@ -16,8 +16,6 @@ type LineChartProps = {
 };
 
 export const LineChart = ({ chartsData }: LineChartProps) => {
-  console.log("chartsData", chartsData);
-
   const accumulatedChartData = chartsData
     .slice(-12)
     .map(({ name, balance }, index) => ({
@@ -25,7 +23,6 @@ export const LineChart = ({ chartsData }: LineChartProps) => {
       balance: balance + (index > 0 ? chartsData[index - 1].balance : 0),
     }));
 
-  console.log("accumulatedChartData", accumulatedChartData);
   return (
     <S.ChartContainer>
       <S.ChartTitle>Evolução do saldo</S.ChartTitle>

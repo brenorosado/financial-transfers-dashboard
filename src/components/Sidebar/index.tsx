@@ -34,6 +34,7 @@ export const Sidebar = ({ showOptions, setShowOptions }: SidebarProps) => {
           $active={pathname === "/"}
         >
           <BiHomeAlt />
+          <S.HintText>Dashboard</S.HintText>
         </S.Option>
         <S.Option
           data-testid="logout-option"
@@ -42,6 +43,7 @@ export const Sidebar = ({ showOptions, setShowOptions }: SidebarProps) => {
           $active={pathname === "/login"}
         >
           <FaDoorOpen />
+          <S.HintText>Sair</S.HintText>
         </S.Option>
       </S.OptionsList>
     </S.SidebarContainer>

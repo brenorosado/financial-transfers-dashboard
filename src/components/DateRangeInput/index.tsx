@@ -28,7 +28,6 @@ export const DateRangeInput = ({
         type="datetime-local"
         value={startDate}
         onChange={({ target: { value } }) => {
-          console.log("value", value);
           setStartDate(value);
           onChangeDate(value, "startDate");
         }}
