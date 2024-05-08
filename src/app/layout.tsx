@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { StyledComponentsRegistry } from "./lib/registry";
+import { StyledComponentsRegistry } from "@/lib/registry";
 import { AuthContextProvider } from "@/contexts/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });

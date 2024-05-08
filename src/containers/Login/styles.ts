@@ -10,7 +10,7 @@ export const LoginMain = styled.main`
 
   section {
     width: clamp(296px, 20vw, 20vw);
-    background: var(--gray);
+    background: var(--dark_gray);
     padding: clamp(16px, 1.667vw, 1.667vw);
     border-radius: clamp(8px, 0.833vw, 0.833vw);
   }

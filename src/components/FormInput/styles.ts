@@ -19,6 +19,7 @@ export const FormInputContainer = styled.div<StyleProps>`
     padding: clamp(8px, 0.833vw, 0.833vw);
     border-radius: clamp(8px, 0.833vw, 0.833vw);
     font-size: clamp(12px, 0.833vw, 0.833vw);
+    color: var(--light_gray);
   }
 `;
 
@@ -27,7 +28,7 @@ export const InputLabel = styled.label<StyleProps>`
   top: calc(-1 * 0.7 * clamp(12px, 0.833vw, 0.833vw));
   left: clamp(16px, 0.833vw, 0.833vw);
   font-size: clamp(12px, 0.73vw, 0.73vw);
-  background: var(--gray);
+  background: var(--dark_gray);
   padding: 0 clamp(4px, 0.21vw, 0.21vw);
   color: ${({ error }) => (error ? "var(--red)" : "var(--light_gray)")};
 `;
