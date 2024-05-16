@@ -6,7 +6,7 @@ import { AuthContextProvider } from "@/contexts/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Bix Challenge",
+  title: "Financial Dashboard",
 };
 
 export default function RootLayout({

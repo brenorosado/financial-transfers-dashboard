@@ -19,36 +19,30 @@ import { TransactionsListModal } from "@/components/TransactionsListModal";
 const fetchTransactions = async (filters: FiltersOptions): Promise<Data> => {
   if (typeof window === "undefined") return dataInitialValue;
 
-  const previousOptions = localStorage.getItem("@bix-challenge:options");
-
   const formattedData = handleTransactions(
     Transactions as Transaction[],
     filters,
-    !previousOptions,
   );
 
-  localStorage.setItem("@bix-challenge:filters", JSON.stringify(filters));
+  return formattedData;
+};
 
-  return {
-    ...formattedData,
-    ...(!!previousOptions
-      ? { options: JSON.parse(previousOptions) }
-      : { options: formattedData.options }),
-  };
+const getCachedFilters = () => {
+  if (typeof window === "undefined") return initialFiltersOptions;
+
+  const storagedFilters = localStorage.getItem(
+    "@financial-transfers-dashboard:filters",
+  );
+
+  if (storagedFilters) return JSON.parse(storagedFilters);
+
+  return initialFiltersOptions;
 };
 
 export const Dashboard = () => {
   const [showOptions, setShowOptions] = useState<boolean>(true);
   const [data, setData] = useState<Data>(dataInitialValue);
-  const [filters, setFilters] = useState<FiltersOptions>(() => {
-    if (typeof window === "undefined") return initialFiltersOptions;
-
-    const storagedFilters = localStorage.getItem("@bix-challenge:filters");
-
-    if (storagedFilters) return JSON.parse(storagedFilters);
-
-    return initialFiltersOptions;
-  });
+  const [filters, setFilters] = useState<FiltersOptions>(getCachedFilters);
 
   const modalRef = useRef<HTMLDivElement>(null);
 

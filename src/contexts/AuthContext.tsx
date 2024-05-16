@@ -25,20 +25,20 @@ export const AuthContextProvider = ({
 
   const signIn = (email: string) => {
     setUserEmail(email);
-    localStorage.setItem("@bix-challenge:userEmail", email);
+    localStorage.setItem("@financial-transfers-dashboard:userEmail", email);
     router.push("/");
   };
 
   const signOut = () => {
     setUserEmail(undefined);
-    localStorage.removeItem("@bix-challenge:userEmail");
+    localStorage.removeItem("@financial-transfers-dashboard:userEmail");
     router.push("/login");
   };
 
   const checkAuthentication = useCallback(() => {
     if (typeof window === "undefined") return;
 
-    const storedUserEmail = localStorage.getItem("@bix-challenge:userEmail");
+    const storedUserEmail = localStorage.getItem("@financial-transfers-dashboard:userEmail");
 
     if (pathname === "/login" && storedUserEmail) {
       setUserEmail(storedUserEmail);

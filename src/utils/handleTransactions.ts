@@ -56,7 +56,6 @@ const filterTransaction = (
 export const handleTransactions = (
   transactions: Transaction[],
   filters: FiltersOptions,
-  mustReturnOptions: boolean = true,
 ) => {
   const accountOptions: string[] = [];
   const stateOptions: string[] = [];
@@ -74,18 +73,16 @@ export const handleTransactions = (
   const manageOptions = (transaction: Transaction) => {
     const { account, state, industry } = transaction;
 
-    if (mustReturnOptions) {
-      if (!accountOptions.includes(account)) {
-        accountOptions.push(account);
-      }
+    if (!accountOptions.includes(account)) {
+      accountOptions.push(account);
+    }
 
-      if (!stateOptions.includes(state)) {
-        stateOptions.push(state);
-      }
+    if (!stateOptions.includes(state)) {
+      stateOptions.push(state);
+    }
 
-      if (!industryOptions.includes(industry)) {
-        industryOptions.push(industry);
-      }
+    if (!industryOptions.includes(industry)) {
+      industryOptions.push(industry);
     }
   };
 
@@ -164,12 +161,12 @@ export const handleTransactions = (
     }
   };
 
-  const filteredTransactions = transactions.filter((transaction) =>
-    filterTransaction(transaction, filters),
-  );
+  const filteredTransactions = transactions.filter((transaction) => {
+    manageOptions(transaction);
+    return filterTransaction(transaction, filters);
+  });
 
   filteredTransactions.forEach((transaction) => {
-    manageOptions(transaction);
     manageLastTransactions(transaction);
     manageChartData(transaction);
     manageAccumulators(transaction);
