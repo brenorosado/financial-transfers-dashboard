@@ -43,17 +43,19 @@ export const AuthContextProvider = ({
       "@financial-transfers-dashboard:userEmail",
     );
 
-    setAuthChecked(true);
+    setAuthChecked(() => {
+      if (pathname === "/login" && storedUserEmail) {
+        setUserEmail(storedUserEmail);
+        router.push("/");
+        return true;
+      }
 
-    if (pathname === "/login" && storedUserEmail) {
-      setUserEmail(storedUserEmail);
-      router.push("/");
-      return;
-    }
+      if (pathname !== "/login" && !storedUserEmail) {
+        router.push("/login");
+      }
 
-    if (pathname !== "/login" && !storedUserEmail) {
-      router.push("/login");
-    }
+      return true;
+    });
   }, [pathname, router]);
 
   useEffect(checkAuthentication, [checkAuthentication]);
