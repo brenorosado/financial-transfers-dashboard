@@ -18,6 +18,7 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [authChecked, setAuthChecked] = useState<boolean>(false);
   const [userEmail, setUserEmail] = useState<string | undefined>(undefined);
 
   const router = useRouter();
@@ -38,7 +39,11 @@ export const AuthContextProvider = ({
   const checkAuthentication = useCallback(() => {
     if (typeof window === "undefined") return;
 
-    const storedUserEmail = localStorage.getItem("@financial-transfers-dashboard:userEmail");
+    const storedUserEmail = localStorage.getItem(
+      "@financial-transfers-dashboard:userEmail",
+    );
+
+    setAuthChecked(true);
 
     if (pathname === "/login" && storedUserEmail) {
       setUserEmail(storedUserEmail);
@@ -52,6 +57,8 @@ export const AuthContextProvider = ({
   }, [pathname, router]);
 
   useEffect(checkAuthentication, [checkAuthentication]);
+
+  if (!authChecked) return null;
 
   return (
     <AuthContext.Provider value={{ userEmail, signIn, signOut }}>
