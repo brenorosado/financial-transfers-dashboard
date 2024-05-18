@@ -47,7 +47,7 @@ export const Select = ({
       </S.SelectContainer>
       {selectedOptions?.length > 0 && (
         <S.QuantitySelectedIndicator>
-          {selectedOptions.length} opções selecionadas
+          {selectedOptions.length} selected options
         </S.QuantitySelectedIndicator>
       )}
       {showOptions && (
@@ -72,7 +72,7 @@ export const Select = ({
               onRemoveAll();
             }}
           >
-            Remover todos
+            Remove all
           </button>
         </S.OptionsContainer>
       )}

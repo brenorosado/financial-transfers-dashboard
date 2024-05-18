@@ -19,9 +19,9 @@ type LineChartProps = {
 export const BarsChart = ({ chartsData }: LineChartProps) => {
   return (
     <S.ChartContainer>
-      <S.ChartTitle>Receitas e despesas</S.ChartTitle>
+      <S.ChartTitle>Income and expenses</S.ChartTitle>
       {chartsData.length === 0 && (
-        <S.EmptyLabel>Não há dados para exibir.</S.EmptyLabel>
+        <S.EmptyLabel>There is no data to display</S.EmptyLabel>
       )}
       {chartsData.length > 1 && (
         <ResponsiveContainer>

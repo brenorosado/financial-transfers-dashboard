@@ -37,9 +37,9 @@ export const LineChart = ({ chartsData }: LineChartProps) => {
 
   return (
     <S.ChartContainer>
-      <S.ChartTitle>Evolução do saldo</S.ChartTitle>
+      <S.ChartTitle>Balance evolution</S.ChartTitle>
       {accumulatedChartData.length === 0 && (
-        <S.EmptyLabel>Não há dados para exibir.</S.EmptyLabel>
+        <S.EmptyLabel>There is no data to display</S.EmptyLabel>
       )}
       {accumulatedChartData.length > 0 && (
         <ResponsiveContainer>

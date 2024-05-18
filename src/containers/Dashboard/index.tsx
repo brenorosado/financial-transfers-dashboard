@@ -103,7 +103,7 @@ export const Dashboard = () => {
 
       <S.TransactionsListSection>
         <S.ListTransactionsButton onClick={openModal}>
-          Listar transações
+          List transactions
         </S.ListTransactionsButton>
       </S.TransactionsListSection>
     </S.DashboardMain>

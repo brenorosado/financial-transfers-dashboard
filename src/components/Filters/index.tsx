@@ -74,14 +74,14 @@ export const Filters = ({ options, filters, setFilters }: FilterProps) => {
       />
       <DateRangeInput onChangeDate={onChangeDate} filters={filters} />
       <Select
-        placeholder="Selecione o estado"
+        placeholder="Select state"
         options={options.stateOptions}
         selectedOptions={filters.states}
         onSelectOption={(state: string) => onSelect(state, "states")}
         onRemoveAll={() => onRemoveAll("states")}
       />
       <Select
-        placeholder="Selecione a indústria"
+        placeholder="Select industry"
         options={options.industryOptions}
         selectedOptions={filters.industries}
         onSelectOption={(industry: string) => onSelect(industry, "industries")}

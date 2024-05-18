@@ -39,7 +39,7 @@ export const ErrorLabel = styled.span`
   right: clamp(16px, 0.833vw, 0.833vw);
   color: var(--red);
   font-size: clamp(10px, 0.6vw, 0.6vw);
-  background: var(--gray);
+  background: var(--dark_gray);
   padding: 0 clamp(4px, 0.21vw, 0.21vw);
 `;
 

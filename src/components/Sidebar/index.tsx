@@ -39,11 +39,11 @@ export const Sidebar = ({ showOptions, setShowOptions }: SidebarProps) => {
         <S.Option
           data-testid="logout-option"
           onClick={signOut}
-          title="Sair"
+          title="Logout"
           $active={pathname === "/login"}
         >
           <FaDoorOpen />
-          <S.HintText>Sair</S.HintText>
+          <S.HintText>Log out</S.HintText>
         </S.Option>
       </S.OptionsList>
     </S.SidebarContainer>

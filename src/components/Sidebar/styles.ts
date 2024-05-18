@@ -82,4 +82,5 @@ export const HintText = styled.span`
   border-radius: clamp(8px, 0.42vw, 0.42vw);
   padding: clamp(8px, 0.42vw, 0.42vw);
   transition: 0.2s;
+  white-space: nowrap;
 `;

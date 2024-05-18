@@ -27,7 +27,7 @@ describe("SummaryCard component", () => {
       />,
     );
 
-    const titleElement = getByText("RECEITAS");
+    const titleElement = getByText("REVENUES");
     const amountElement = getByText("R$ 2.000,00");
 
     expect(titleElement).toBeInTheDocument();

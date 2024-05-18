@@ -32,7 +32,7 @@ export const DateRangeInput = ({
           onChangeDate(value, "startDate");
         }}
       />
-      <span>até</span>
+      <span>to</span>
       <input
         type="datetime-local"
         value={endDate}

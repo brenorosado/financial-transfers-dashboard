@@ -18,22 +18,22 @@ type SummaryCardProps = {
 const getCardInfo = ({ type, values, transactions }: SummaryCardProps) => {
   const titles = {
     expenses: {
-      title: "DESPESAS",
+      title: "EXPENSES",
       amount: values.totalExpenses,
       transactionsToList: transactions.lastWithdrawals,
     },
     income: {
-      title: "RECEITAS",
+      title: "REVENUES",
       amount: values.totalIncome,
       transactionsToList: transactions.lastDeposits,
     },
     pending: {
-      title: "PENDENTES",
+      title: "PENDING",
       amount: values.totalPending,
       transactionsToList: transactions.lastPendingTransactions,
     },
     balance: {
-      title: "SALDO",
+      title: "BALANCE",
       amount: values.totalIncome - values.totalExpenses,
       transactionsToList: transactions.lastTransactions,
     },
@@ -63,7 +63,7 @@ export const SummaryCard = ({
       </S.Header>
       <S.TransactionsList>
         {transactionsToList.length === 0 && (
-          <S.EmptyLabel>Nenhuma transação deste tipo.</S.EmptyLabel>
+          <S.EmptyLabel>No transactions of this type</S.EmptyLabel>
         )}
         {transactionsToList.map(
           ({

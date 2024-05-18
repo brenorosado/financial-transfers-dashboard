@@ -43,14 +43,14 @@ export const Login = () => {
               ...register("email", {
                 required: {
                   value: true,
-                  message: "campo obrigatório",
+                  message: "required field",
                 },
               }),
             }}
           />
           <FormInput
             id="password"
-            label="Senha"
+            label="Password"
             autoComplete="off"
             canToggleTextVisibility
             error={errors.password?.message}
@@ -58,12 +58,12 @@ export const Login = () => {
               ...register("password", {
                 required: {
                   value: true,
-                  message: "campo obrigatório",
+                  message: "required field",
                 },
               }),
             }}
           />
-          <Button type="submit">ENTRAR</Button>
+          <Button type="submit">SIGN IN</Button>
         </S.LoginForm>
       </section>
     </S.LoginMain>
