@@ -66,7 +66,7 @@ export const Filters = ({ options, filters, setFilters }: FilterProps) => {
   return (
     <S.FiltersContainer>
       <Select
-        placeholder="Selecione a conta"
+        placeholder="Select account"
         options={options.accountOptions}
         selectedOptions={filters.accounts}
         onSelectOption={(account: string) => onSelect(account, "accounts")}

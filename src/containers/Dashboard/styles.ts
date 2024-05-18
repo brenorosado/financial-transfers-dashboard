@@ -19,7 +19,7 @@ export const DashboardMain = styled.main<{ $showSideBarOptions: boolean }>`
 
 export const Header = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
   gap: clamp(16px, 0.833vw, 0.833vw);
@@ -54,7 +54,7 @@ export const ListTransactionsButton = styled.button`
   all: unset;
   cursor: pointer;
   padding: clamp(8px, 0.833vw, 0.833vw);
-  font-size: clamp(8px, 0.833vw, 0.833vw);
+  font-size: clamp(12px, 0.833vw, 0.833vw);
   transition: 0.2s;
   color: var(--light_gray);
 

@@ -19,8 +19,8 @@ export const Overlay = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  width: clamp(260px, 50vw, 50vw);
-  height: clamp(260px, 60vh, 60vh);
+  width: clamp(260px, 60vw, 60vw);
+  max-height: 90vh;
   background: var(--dark_gray);
   padding: clamp(8px, 0.833vw, 0.833vw);
   border-radius: clamp(8px, 0.833vw, 0.833vw);
@@ -50,4 +50,9 @@ export const Header = styled.div`
 export const TransactionsListContainer = styled.div`
   height: 100%;
   overflow-y: auto;
+`;
+
+export const EmbptyLabel = styled.span`
+  color: var(--light_gray);
+  text-align: center;
 `;

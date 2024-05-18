@@ -78,7 +78,6 @@ export const Dashboard = () => {
       <Sidebar showOptions={showOptions} setShowOptions={setShowOptions} />
 
       <S.Header>
-        <h2>Olá, usuário</h2>
         <Filters
           options={data.options}
           filters={filters}
