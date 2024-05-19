@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction } from "react";
 import * as S from "./styles";
 import { Select } from "../Select";
 import { Data } from "@/containers/Dashboard/types";
@@ -27,28 +21,14 @@ type FilterProps = {
 type SelectsOptions = "industries" | "states" | "accounts";
 
 export const Filters = ({ options, filters, setFilters }: FilterProps) => {
-  const onSelect = (newOption: string, optionType: SelectsOptions) => {
+  const onApllySelectOptions = (
+    newOptions: string[],
+    optionType: SelectsOptions,
+  ) => {
     setFilters((prevFilters) => {
-      const newOptions = [...prevFilters[optionType]];
-
-      if (newOptions.includes(newOption)) {
-        newOptions.splice(newOptions.indexOf(newOption), 1);
-      } else {
-        newOptions.push(newOption);
-      }
-
       return {
         ...prevFilters,
         [optionType]: newOptions,
-      };
-    });
-  };
-
-  const onRemoveAll = (optionType: SelectsOptions) => {
-    setFilters((prevFilters) => {
-      return {
-        ...prevFilters,
-        [optionType]: [],
       };
     });
   };
@@ -69,23 +49,26 @@ export const Filters = ({ options, filters, setFilters }: FilterProps) => {
         placeholder="Select account"
         options={options.accountOptions}
         selectedOptions={filters.accounts}
-        onSelectOption={(account: string) => onSelect(account, "accounts")}
-        onRemoveAll={() => onRemoveAll("accounts")}
+        onApplyOptions={(newSelectedAccounts) =>
+          onApllySelectOptions(newSelectedAccounts, "accounts")
+        }
       />
       <DateRangeInput onChangeDate={onChangeDate} filters={filters} />
       <Select
         placeholder="Select state"
         options={options.stateOptions}
         selectedOptions={filters.states}
-        onSelectOption={(state: string) => onSelect(state, "states")}
-        onRemoveAll={() => onRemoveAll("states")}
+        onApplyOptions={(newSelectedStates) =>
+          onApllySelectOptions(newSelectedStates, "states")
+        }
       />
       <Select
         placeholder="Select industry"
         options={options.industryOptions}
         selectedOptions={filters.industries}
-        onSelectOption={(industry: string) => onSelect(industry, "industries")}
-        onRemoveAll={() => onRemoveAll("industries")}
+        onApplyOptions={(newSelectedIndustries) =>
+          onApllySelectOptions(newSelectedIndustries, "industries")
+        }
       />
     </S.FiltersContainer>
   );

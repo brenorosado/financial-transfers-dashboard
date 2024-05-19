@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const SelectWrapper = styled.div`
   position: relative;
   flex: 1;
+  z-index: 2;
 `;
 
 export const SelectContainer = styled.div`
@@ -12,6 +13,7 @@ export const SelectContainer = styled.div`
   display: flex;
   flex-wrap: no-wrap;
   min-width: 140px;
+  z-index: 4;
 
   input {
     all: unset;
@@ -71,8 +73,20 @@ export const OptionsList = styled.div`
   gap: clamp(6px, 0.25vw, 0.25vw);
 `;
 
+export const OptionsOverlay = styled.div`
+  background: transparent;
+  position: fixed;
+  width: 100dvw;
+  width: 100vw;
+  height: 100dvh;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1;
+`;
+
 type OptionsStyleProps = {
-  selected: boolean;
+  $selected: boolean;
 };
 
 export const Option = styled.div<OptionsStyleProps>`
@@ -87,7 +101,7 @@ export const Option = styled.div<OptionsStyleProps>`
     border: 1px solid var(--light_gray);
     border-radius: clamp(4px, 0.21vw, 0.21vw);
 
-    ${({ selected }) => selected && "background: var(--light_gray);"}
+    ${({ $selected }) => $selected && "background: var(--light_gray);"}
   }
 
   &:hover {
@@ -97,7 +111,7 @@ export const Option = styled.div<OptionsStyleProps>`
 
     div {
       border: 1px solid var(--white);
-      ${({ selected }) => selected && "background: var(--white);"}
+      ${({ $selected }) => $selected && "background: var(--white);"}
     }
   }
 

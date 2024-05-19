@@ -6,19 +6,33 @@ type SelectProps = {
   options: string[];
   selectedOptions: string[];
   placeholder: string;
-  onSelectOption: (option: string) => void;
-  onRemoveAll: () => void;
+  onApplyOptions: (options: string[]) => void;
 };
 
 export const Select = ({
   placeholder,
   options,
   selectedOptions,
-  onSelectOption,
-  onRemoveAll,
+  onApplyOptions,
 }: SelectProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [newSelectedOptions, setNewSelectedOptions] =
+    useState<string[]>(selectedOptions);
   const [search, setSearch] = useState<string>("");
+
+  const onSelectOption = (newOption: string) => {
+    setNewSelectedOptions((prevNewSelectedOptions) => {
+      const newOptions = [...prevNewSelectedOptions];
+
+      if (newOptions.includes(newOption)) {
+        newOptions.splice(newOptions.indexOf(newOption), 1);
+      } else {
+        newOptions.push(newOption);
+      }
+
+      return newOptions;
+    });
+  };
 
   const filteredOptions = useMemo(() => {
     if (!search) return options;
@@ -29,53 +43,72 @@ export const Select = ({
   }, [options, search]);
 
   return (
-    <S.SelectWrapper>
-      <S.SelectContainer
-        onClick={() => setShowOptions((prevState) => !prevState)}
-      >
-        <input
-          placeholder={placeholder}
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            if (!showOptions) setShowOptions(true);
-          }}
-        />
-        <S.IconContainer>
-          <MdOutlineKeyboardArrowDown />
-        </S.IconContainer>
-      </S.SelectContainer>
-      {selectedOptions?.length > 0 && (
-        <S.QuantitySelectedIndicator>
-          {selectedOptions.length} selected options
-        </S.QuantitySelectedIndicator>
-      )}
+    <>
       {showOptions && (
-        <S.OptionsContainer>
-          <S.OptionsList>
-            {filteredOptions.map((option) => (
-              <S.Option
-                key={option}
-                selected={selectedOptions.includes(option)}
-                onClick={() => onSelectOption(option)}
-              >
-                <div></div>
-                <span>{option}</span>
-              </S.Option>
-            ))}
-          </S.OptionsList>
-          <button
-            onClick={() => {
-              setSearch("");
-              setShowOptions(false);
-              if (selectedOptions.length === 0) return;
-              onRemoveAll();
-            }}
-          >
-            Remove all
-          </button>
-        </S.OptionsContainer>
+        <S.OptionsOverlay
+          onClick={() => setShowOptions(false)}
+        ></S.OptionsOverlay>
       )}
-    </S.SelectWrapper>
+      <S.SelectWrapper>
+        <S.SelectContainer
+          onClick={() => setShowOptions((prevState) => !prevState)}
+        >
+          <input
+            placeholder={placeholder}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              if (!showOptions) setShowOptions(true);
+            }}
+          />
+          <S.IconContainer>
+            <MdOutlineKeyboardArrowDown />
+          </S.IconContainer>
+        </S.SelectContainer>
+        {selectedOptions?.length > 0 && (
+          <S.QuantitySelectedIndicator>
+            {selectedOptions.length} selected options
+          </S.QuantitySelectedIndicator>
+        )}
+        {showOptions && (
+          <>
+            <S.OptionsContainer>
+              <S.OptionsList>
+                {filteredOptions.map((option) => (
+                  <S.Option
+                    data-testid={`option-${option}`}
+                    key={option}
+                    $selected={newSelectedOptions.includes(option)}
+                    onClick={() => onSelectOption(option)}
+                  >
+                    <div></div>
+                    <span>{option}</span>
+                  </S.Option>
+                ))}
+              </S.OptionsList>
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setShowOptions(false);
+                  onApplyOptions(newSelectedOptions);
+                }}
+              >
+                Apply
+              </button>
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setShowOptions(false);
+                  setNewSelectedOptions([]);
+                  onApplyOptions([]);
+                }}
+              >
+                Remove all
+              </button>
+            </S.OptionsContainer>
+          </>
+        )}
+      </S.SelectWrapper>
+    </>
   );
 };
