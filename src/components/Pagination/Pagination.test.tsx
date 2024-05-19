@@ -37,4 +37,31 @@ describe("Pagination Component", () => {
       });
     },
   );
+
+  it("calls onPageChange function when a page button is clicked", () => {
+    const mockedOnPageChange = jest.fn();
+    const { getByText } = render(
+      <Pagination
+        currentPage={1}
+        totalPages={10}
+        onPageChange={mockedOnPageChange}
+      />,
+    );
+    fireEvent.click(getByText("2"));
+    expect(mockedOnPageChange).toHaveBeenCalledWith(2);
+  });
+
+  it("applied style to selected page button correctly", () => {
+    const mockedOnPageChange = jest.fn();
+    const { getByText } = render(
+      <Pagination
+        currentPage={1}
+        totalPages={10}
+        onPageChange={mockedOnPageChange}
+      />,
+    );
+    expect(getByText("1")).toHaveStyle({
+      border: "1px solid var(--light_gray)",
+    });
+  });
 });
