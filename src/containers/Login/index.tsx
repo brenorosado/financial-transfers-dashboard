@@ -38,6 +38,7 @@ export const Login = () => {
             label="E-mail"
             type="email"
             autoComplete="off"
+            placeholder="Any valid e-mail"
             error={errors.email?.message}
             register={{
               ...register("email", {
@@ -52,6 +53,7 @@ export const Login = () => {
             id="password"
             label="Password"
             autoComplete="off"
+            placeholder="Any password"
             canToggleTextVisibility
             error={errors.password?.message}
             register={{

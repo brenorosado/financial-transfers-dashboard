@@ -56,12 +56,12 @@ export const LineChart = ({ chartsData }: LineChartProps) => {
             <Tooltip
               formatter={(value) => [
                 `${formatBRLCurrency(Number(value), false)}`,
-                "Saldo",
+                "Balance",
               ]}
               contentStyle={{
-                backgroundColor: "rgba(0, 0, 0, 0.3)",
+                backgroundColor: "rgba(30, 30, 30, 0.3)",
                 borderRadius: "clamp(8px, 0.833vw, 0.833vw)",
-                border: `1px solid var(--light_gray)`,
+                border: `none`,
                 backdropFilter: "blur(3px)",
                 textTransform: "capitalize",
               }}
@@ -77,7 +77,7 @@ export const LineChart = ({ chartsData }: LineChartProps) => {
               payload={[
                 {
                   id: "balance",
-                  value: "Saldo",
+                  value: "Balance",
                   color: "url(#colorBalance)",
                 },
               ]}

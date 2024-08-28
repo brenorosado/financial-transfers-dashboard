@@ -8,6 +8,7 @@ export const DateRangeInputContainer = styled.div`
   align-items: center;
   justy-content: space-between;
   flex: 1;
+  gap: clamp(8px, 0.42vw, 0.42vw);
 
   @media (max-width: 550px) {
     flex-wrap: wrap;

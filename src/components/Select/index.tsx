@@ -81,8 +81,8 @@ export const Select = ({
                     $selected={newSelectedOptions.includes(option)}
                     onClick={() => onSelectOption(option)}
                   >
-                    <div></div>
                     <span>{option}</span>
+                    <div></div>
                   </S.Option>
                 ))}
               </S.OptionsList>

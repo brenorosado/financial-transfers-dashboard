@@ -14,14 +14,15 @@ export const Overlay = styled.div`
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
   z-index: 10;
 `;
 
 export const ModalContent = styled.div`
   width: clamp(260px, 60vw, 60vw);
   max-height: 90vh;
-  background: var(--dark_gray);
+  background: rgba(30, 30, 30, 0.5);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 0 clamp(8px, 0.42vw, 0.42vw) rgba(0, 0, 0, 0.5);
   padding: clamp(8px, 0.833vw, 0.833vw);
   border-radius: clamp(8px, 0.833vw, 0.833vw);
   display: flex;

@@ -42,12 +42,12 @@ export const BarsChart = ({ chartsData }: LineChartProps) => {
             <Tooltip
               formatter={(value, name) => [
                 `${formatBRLCurrency(Number(value), false)}`,
-                name === "expenses" ? "Despesas" : "Receitas",
+                name === "expenses" ? "Expenses" : "Income",
               ]}
               contentStyle={{
-                backgroundColor: "rgba(0, 0, 0, 0.3)",
+                backgroundColor: "rgba(30, 30, 30, 0.3)",
                 borderRadius: "clamp(8px, 0.833vw, 0.833vw)",
-                border: `1px solid var(--light_gray)`,
+                border: `none`,
                 backdropFilter: "blur(3px)",
                 textTransform: "capitalize",
               }}
@@ -61,12 +61,12 @@ export const BarsChart = ({ chartsData }: LineChartProps) => {
               payload={[
                 {
                   id: "expenses",
-                  value: <S.LegendLabel>Despesas</S.LegendLabel>,
+                  value: <S.LegendLabel>Expenses</S.LegendLabel>,
                   color: "url(#colorExpenses)",
                 },
                 {
                   id: "income",
-                  value: <S.LegendLabel>Receitas</S.LegendLabel>,
+                  value: <S.LegendLabel>Income</S.LegendLabel>,
                   color: "url(#colorIncome)",
                 },
               ]}

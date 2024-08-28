@@ -25,7 +25,7 @@ export const DateRangeInput = ({
   return (
     <S.DateRangeInputContainer>
       <input
-        type="datetime-local"
+        type="date"
         value={startDate}
         onChange={({ target: { value } }) => {
           setStartDate(value);
@@ -34,7 +34,7 @@ export const DateRangeInput = ({
       />
       <span>to</span>
       <input
-        type="datetime-local"
+        type="date"
         value={endDate}
         onChange={({ target: { value } }) => {
           setEndDate(value);

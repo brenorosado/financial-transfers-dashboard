@@ -20,6 +20,10 @@ export const FormInputContainer = styled.div<StyleProps>`
     border-radius: clamp(8px, 0.833vw, 0.833vw);
     font-size: clamp(12px, 0.833vw, 0.833vw);
     color: var(--light_gray);
+
+    &::placeholder {
+      color: var(--medium_gray);
+    }
   }
 `;
 

@@ -44,7 +44,9 @@ export const OptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: clamp(6px, 0.25vw, 0.25vw);
-  background: var(--gray);
+  backdrop-filter: blur(3px);
+  background: rgba(30, 30, 30, 0.3);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
   z-index: 9;
 
   button {
@@ -55,7 +57,7 @@ export const OptionsContainer = styled.div`
     font-size: clamp(12px, 0.833vw, 0.833vw);
     padding: clamp(4px, 0.42vw, 0.42vw);
     border-radius: clamp(8px, 0.42vw, 0.42vw);
-    border: 1px solid var(--light_gray);
+    background: var(--gray);
     cursor: pointer;
 
     &:last-child {
@@ -94,12 +96,14 @@ export const Option = styled.div<OptionsStyleProps>`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  padding-right: clamp(2px, 0.12vw, 0.12vw);
 
   div {
     width: clamp(12px, 0.833vw, 0.833vw);
     height: clamp(12px, 0.833vw, 0.833vw);
     border: 1px solid var(--light_gray);
     border-radius: clamp(4px, 0.21vw, 0.21vw);
+    margin-right: clamp(8px, 0.42vw, 0.42vw);
 
     ${({ $selected }) => $selected && "background: var(--light_gray);"}
   }
@@ -117,7 +121,6 @@ export const Option = styled.div<OptionsStyleProps>`
 
   span {
     font-size: clamp(12px, 0.833vw, 0.833vw);
-    padding-right: clamp(8px, 0.42vw, 0.42vw);
     text-align: right;
     color: var(--light_gray);
   }
